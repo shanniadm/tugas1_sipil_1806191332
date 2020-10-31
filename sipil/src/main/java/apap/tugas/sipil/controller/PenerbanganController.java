@@ -1,14 +1,9 @@
 package apap.tugas.sipil.controller;
 import apap.tugas.sipil.model.PenerbanganModel;
-import apap.tugas.sipil.model.PilotModel;
 import apap.tugas.sipil.model.PilotPenerbanganModel;
 import apap.tugas.sipil.service.PenerbanganService;
 import apap.tugas.sipil.service.PilotService;
 import apap.tugas.sipil.service.PilotPenerbanganService;
-import java.nio.file.Path;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PenerbanganController{

@@ -92,7 +92,7 @@
                                 <td th:text="${jadwal.penerbangan.kotaAsal}"></td>
                                 <td th:text="${jadwal.penerbangan.kotaTujuan}"></td>
                                 <td><a class="btn" style="background-color: royalblue; color: white;" 
-                                    th:href="@{#}">Lihat</a></td>
+                                    th:href="@{/penerbangan/detail/}+${jadwal.penerbangan.id}">Lihat</a></td>
                             </tr>
                         </tbody>
                     </table>

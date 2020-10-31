@@ -10,18 +10,13 @@ import apap.tugas.sipil.service.MaskapaiService;
 import apap.tugas.sipil.service.PilotPenerbanganService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -197,5 +192,4 @@ public class PilotController {
         }
         return "cari-penerbangan-terbanyak";
     }
-
 }
