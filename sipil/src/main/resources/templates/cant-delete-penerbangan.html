@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hapus Penerbangan</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class=" container align-content-center" style="background-color: midnightblue; color: white;
+        margin: 5%; padding: 5%; border-radius: 20px;">
+            <h3 class=" text-center" th:text="'Penerbangan '+${kode}+' gagal dihapus dikarenakan ada pilot yang bertugas'"></h3>
+            <p class="text-center" style="color: white;"><a th:href="@{/penerbangan}">Kembali ke Daftar Penerbangan</a></p>
+        </div>
+    </body>
+</html>

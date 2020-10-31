@@ -38,8 +38,11 @@
                                 th:href="@{/penerbangan/detail/}+${pen.id}">Lihat</a></td>
                             <td><a class="btn" style="background-color:darkblue; color: white;" 
                                 th:href="@{/penerbangan/ubah/}+${pen.id}">Ubah</a></td>
-                            <td><a class="btn" style="background-color: darkred; color: white;" 
-                                th:href="@{/penerbangan/hapus/}+${pen.id}">Hapus</a></td>
+                            <td><form th:action="@{/penerbangan/hapus}" th:object="${pen}" method="POST">
+                                <input type="hidden" name="id" th:value="${pen.id}">
+                                <input type="hidden" name="kode" th:value="${pen.kode}">
+                                <input type="submit" value="Delete" class=" btn-danger btn">
+                            </form></td>
                         </tr>
                     </tbody>
                 </table>

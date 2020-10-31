@@ -12,4 +12,6 @@ public interface PilotPenerbanganService {
     List<PilotPenerbanganModel> getPilotPenerbanganByPenerbangan(PenerbanganModel penerbangan);
 
     List<PilotModel> getPilotByPenerbangan(PenerbanganModel penerbangan);
+
+    void addPilotPenerbangan(PilotPenerbanganModel pilotPenerbangan);
 }

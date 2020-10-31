@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ubah Penerbangan</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class=" container" style=" margin:3%; padding-left: 30%; padding-right: 30%;">
+            <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
+                <div class=" container" style="background-color: midnightblue; color: white;">
+                    <h4 class=" text-center">Ubah Penerbangan</h4>
+                </div>
+                <div class=" container form-container" style="padding-bottom: 5%;">
+                    <form th:action="@{/penerbangan/ubah}" th:object="${penerbangan}" method="POST">
+                    <input type="hidden" name="id" th:value="*{id}">
+                    Kode <br>
+                    <input type="text" name="kode" th:value="*{kode}">
+                    <br>
+                    Waktu<br>
+                    <input type="datetime-local" name="waktu" th:value="*{waktu}">
+                    <br>
+                    Kota Asal <br>
+                    <input type="text" name="kotaAsal" th:value="*{kotaAsal}">
+                    <br>
+                    Kota Tujuan <br>
+                    <input type="text" name="kotaTujuan" th:value="*{kotaTujuan}">
+                    <br>
+                    <div class="container btn-container" style="padding-left: 45%;" >
+                        <a class=" btn" style="background-color: white; color: midnightblue; 
+                        border-color: midnightblue;" th:href="@{/penerbangan}">Batal</a>
+                        <button class="btn" value="Submit" type="submit" style="background-color: midnightblue; color: white;">Ubah</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

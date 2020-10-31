@@ -1,4 +1,5 @@
 package apap.tugas.sipil.controller;
+
 import apap.tugas.sipil.model.PilotModel;
 import apap.tugas.sipil.model.PilotPenerbanganModel;
 import apap.tugas.sipil.model.AkademiModel;
@@ -7,6 +8,8 @@ import apap.tugas.sipil.service.PilotService;
 import apap.tugas.sipil.service.AkademiService;
 import apap.tugas.sipil.service.MaskapaiService;
 import apap.tugas.sipil.service.PilotPenerbanganService;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -79,7 +82,7 @@ public class PilotController {
         return "detail-pilot";
     }
 
-    @GetMapping("pilot/ubah/{nip}")
+    @GetMapping("/pilot/ubah/{nip}")
     public String changePilotFormPage(
         @PathVariable String nip,
         Model model
@@ -91,7 +94,7 @@ public class PilotController {
         return "form-update-pilot";
     }
 
-    @PostMapping("pilot/ubah")
+    @PostMapping("/pilot/ubah")
     public String changePilotFormSubmit(
         @ModelAttribute PilotModel pilot,
         Model model
@@ -101,4 +104,41 @@ public class PilotController {
         model.addAttribute("nip", pilotTarget.getNip());
         return "update-pilot";
     }
+
+    @RequestMapping("/cari")
+    public String cari(Model model){
+        return "cari";
+    }
+
+    @GetMapping(value = "/cari/pilot")
+    public String cariPilotMaskapaiDanAkademi(
+        @RequestParam(value = "kodeMaskapai", required = false) String kodeMaskapai,
+        @RequestParam(value = "idSekolah", required = false) Long idSekolah,
+        Model model
+    ){
+        model.addAttribute("listMaskapai", maskapaiService.getMaskapaiList());
+        model.addAttribute("listAkademi", akademiService.getAkademiList());
+
+        List<PilotModel> listPilot;
+
+        if(kodeMaskapai.equals("nothing")==false && idSekolah==0){
+            MaskapaiModel mkp = maskapaiService.getMaskapaiByKode(kodeMaskapai);
+            listPilot = pilotService.getPilotByMaskapai(mkp);
+
+        } else if(kodeMaskapai.equals("nothing")==true && idSekolah!=0){
+            AkademiModel aka = akademiService.getAkademiById(idSekolah);
+            listPilot = pilotService.getPilotByAkademi(aka);
+
+        } else if(kodeMaskapai.equals("nothing")==false && idSekolah!=0){
+            MaskapaiModel mkp = maskapaiService.getMaskapaiByKode(kodeMaskapai);
+            AkademiModel aka = akademiService.getAkademiById(idSekolah);
+            listPilot = pilotService.getPilotByMaskapaiAndAkademi(mkp, aka);
+
+        } else {
+            listPilot = new ArrayList<PilotModel>();
+        }
+        model.addAttribute("listPilot", listPilot);
+        return "cari-pilot-maskapai-akademi";
+    }
+
 }

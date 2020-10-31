@@ -11,7 +11,7 @@
         <div class=" container" style="margin: 2%; padding-left: 30%; padding-right: 30%;">
             <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
                 <div class=" container" style="background-color: midnightblue; color: white;">
-                    <h4 class=" text-center">Detail Pilot</h4>
+                    <h4 class=" text-center">Detail Penerbangan</h4>
                 </div>
                 <div class="container" style=" padding-bottom: 2%;">
                     <table>
@@ -35,17 +35,32 @@
                             <td th:text="'Kota Tujuan'" style="padding: 10px;"></td>
                             <td th:text="': '+${penerbangan.kotaTujuan}" style="padding: 10px;"></td>
                         </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="btn" style="background-color:darkblue; color: white; margin-left: 50%;" 
+                                th:href="@{/penerbangan/ubah/}+${penerbangan.id}">Ubah</a></td>
+                            <td><form th:action="@{/penerbangan/hapus}" th:object="${penerbangan}" method="POST">
+                                <input type="hidden" name="id" th:value="${penerbangan.id}">
+                                <input type="hidden" name="kode" th:value="${penerbangan.kode}">
+                                <input type="submit" value="Delete" class="btn btn-danger">
+                            </form></td>
+                        </tr>
                     </table>
-                </div>
-                <div class=" container align-content-end" style="padding-left: 50%; margin: 5%; padding-bottom: 5%;"> 
-                    <td><a class="btn" style="background-color:darkblue; color: white;" 
-                        th:href="@{/penerbangan/ubah/}+${penerbangan.id}">Ubah</a></td>
-                    <td><a class="btn" style="background-color: darkred; color: white;" 
-                        th:href="@{/penerbangan/hapus/}+${penerbangan.id}">Hapus</a></td>
                 </div>
             </div>
         </div>
         <div class=" container" style="margin: 5%; padding-left: 10%; padding-right: 10%;">
+            <div class="container " style="padding: 3%;">
+                <form th:action="@{/penerbangan/__${penerbangan.id}__/pilot/tambah}" th:object="${jadwalBaru}" method="POST">
+                    <input type="hidden" name="penerbangan" th:value="${penerbangan.id}">
+                    <select name="pilot">
+                        <option th:each="pi : ${listPilot}" th:value="${pi.id}" th:text="${pi.nama}"></option>
+                    </select>
+                    <input type="date" name="tanggalPenugasan" placeholder="dd-mm-yyyy">
+                    <button class="btn" value="Submit" type="submit" style="background-color:cadetblue; color: white;">Tambah</button>
+                </form>
+            </div>
+            
             <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
                 <div class=" container" style="background-color: midnightblue; color: white;">
                     <h4 class=" text-center">Daftar Pilot</h4>

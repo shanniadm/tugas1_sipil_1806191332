@@ -1,4 +1,6 @@
 package apap.tugas.sipil.service;
+import apap.tugas.sipil.model.AkademiModel;
+import apap.tugas.sipil.model.MaskapaiModel;
 import apap.tugas.sipil.model.PilotModel;
 import apap.tugas.sipil.repository.PilotDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +67,20 @@ public class PilotServiceImpl implements PilotService{
         target.setMaskapai(pilot.getMaskapai());
         pilotDb.save(target);
         return target;
+    }
+    
+    @Override
+    public List<PilotModel> getPilotByMaskapaiAndAkademi(MaskapaiModel maskapai, AkademiModel akademi){
+        return pilotDb.findByMaskapaiAndAkademi(maskapai, akademi);
+    }
+
+    @Override
+    public List<PilotModel> getPilotByMaskapai(MaskapaiModel maskapai){
+        return pilotDb.findByMaskapai(maskapai);
+    }
+
+    @Override
+    public List<PilotModel> getPilotByAkademi(AkademiModel akademi){
+        return pilotDb.findByAkademi(akademi);
     }
 }

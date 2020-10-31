@@ -17,4 +17,9 @@ public class AkademiServiceImpl implements AkademiService{
     public List<AkademiModel> getAkademiList(){
         return akademiDb.findAll();
     }
+
+    @Override
+    public AkademiModel getAkademiById(Long id){
+        return akademiDb.getOne(id);
+    }
 }

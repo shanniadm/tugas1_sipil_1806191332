@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tambah Penerbangan</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class=" container align-content-center" style="background-color:gainsboro; color: midnightblue;
+        margin: 5%; padding: 5%; border-radius: 20px;">
+            <h3 class=" text-center"  th:text="'Fitur Pencarian'"></h3>
+            <div class="container align-content-center text-center" style="padding-left: 30%; padding-right: 20%;">
+                <form th:action="@{/cari/pilot}">
+                    <table>
+                        <tr>
+                            <td>Pilih Kode Maskapai</td>
+                            <td style="padding: 2%;"><td>
+                            <td>Pilih Nama Sekolah</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select th:name="kodeMaskapai">
+                                    <option th:text="'Nama Maskapai'" value="nothing"></option>
+                                    <option th:each="mas: ${listMaskapai}" th:value="${mas.kode}" 
+                                    th:text="${mas.nama}"></option>
+                                </select>
+                            </td>
+                            <td style="padding: 2%;"><td></td>
+                            <td>
+                                <select th:name="idSekolah">
+                                    <option th:text="'Nama Sekolah'" value="0"></option>
+                                    <option th:each="aka : ${listAkademi}" th:value="${aka.id}" 
+                                    th:text="${aka.nama}"></option>
+                                </select>
+                            </td>
+                            <td><button class="btn" value="Submit" type="submit" style="background-color: midnightblue; color: white;">Cari</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div th:if="${listPilot.size()>0}" class=" container" style="margin: 5%; padding-left: 10%; padding-right: 10%;">
+            <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
+                <div class=" container" style="background-color: midnightblue; color: white;">
+                    <h6 class=" text-center">Hasil Pencarian Pilot Berdasarkan Maskapai atau Sekolah</h6>
+                </div>
+                <div class=" container">
+                    <table class=" table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>NIP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="pl, itr : ${listPilot}">
+                                <td th:text="${itr.count}"></td>
+                                <td th:text="${pl.nama}"></td>
+                                <td th:text="${pl.nip}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div th:unless="${listPilot.size()>0}" class=" text-center">
+            <p>Pencarian tidak ditemukan.</p>
+        </div>
+    </body>
+</html>

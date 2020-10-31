@@ -5,4 +5,6 @@ import java.util.List;
 public interface AkademiService {
     //Method untuk mendapatkan daftar Akademi
     List<AkademiModel> getAkademiList();
+
+    AkademiModel getAkademiById(Long id);
 }

@@ -5,4 +5,6 @@ import java.util.List;
 public interface MaskapaiService {
     //Method mendapatkan daftar maskapai
     List<MaskapaiModel> getMaskapaiList();
+
+    MaskapaiModel getMaskapaiByKode(String kode);
 }

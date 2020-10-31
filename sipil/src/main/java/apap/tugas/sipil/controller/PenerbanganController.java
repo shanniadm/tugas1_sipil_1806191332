@@ -3,6 +3,7 @@ import apap.tugas.sipil.model.PenerbanganModel;
 import apap.tugas.sipil.model.PilotModel;
 import apap.tugas.sipil.model.PilotPenerbanganModel;
 import apap.tugas.sipil.service.PenerbanganService;
+import apap.tugas.sipil.service.PilotService;
 import apap.tugas.sipil.service.PilotPenerbanganService;
 import java.nio.file.Path;
 import java.sql.Timestamp;
@@ -27,6 +28,9 @@ public class PenerbanganController{
 
     @Autowired
     PilotPenerbanganService pilotPenerbanganService;
+
+    @Autowired
+    PilotService pilotService;
 
     @RequestMapping("/penerbangan")
     public String listPenerbangan(Model model){
@@ -57,8 +61,61 @@ public class PenerbanganController{
         Model model){
         PenerbanganModel penerbangan = penerbanganService.getPenerbanganById(id);
         List<PilotPenerbanganModel> listJadwal = pilotPenerbanganService.getPilotPenerbanganByPenerbangan(penerbangan);
+        model.addAttribute("listPilot", pilotService.getPilotList());
+        model.addAttribute("jadwalBaru", new PilotPenerbanganModel());
         model.addAttribute("penerbangan", penerbangan);
         model.addAttribute("listJadwal", listJadwal);
         return "detail-penerbangan";
     }
+
+    @GetMapping("/penerbangan/ubah/{id}")
+    public String changePenerbanganFormPage(
+        @PathVariable Long id, 
+        Model model
+    ){
+        PenerbanganModel penerbangan = penerbanganService.getPenerbanganById(id);
+        model.addAttribute("penerbangan", penerbangan);
+        return "form-update-penerbangan";
+    }
+
+    @PostMapping("/penerbangan/ubah")
+    public String changePenerbanganFormSubmit(
+        @ModelAttribute PenerbanganModel penerbangan,
+        Model model
+    ){
+        PenerbanganModel penTarget = penerbanganService.updatePenerbangan(penerbangan);
+        model.addAttribute("kode", penTarget.getKode());
+        return "update-penerbangan";
+    }
+
+    @PostMapping("/penerbangan/hapus")
+    public String deletePenerbangan(
+        @ModelAttribute PenerbanganModel pen,
+        Model model
+    ){
+        List<PilotPenerbanganModel> listPen = pilotPenerbanganService.getPilotPenerbanganByPenerbangan(pen);
+        if(listPen.size()>0){
+            model.addAttribute("kode", pen.getKode());
+            return "cant-delete-penerbangan";
+        } else {
+            model.addAttribute("kode", pen.getKode());
+            penerbanganService.deletePenerbangan(pen.getId());
+            return "delete-penerbangan";
+        }
+    }
+
+    @PostMapping("/penerbangan/{penerbanganId}/pilot/tambah")
+    public String addNewPilotPenerbangan(
+        @PathVariable Long penerbanganId,
+        @ModelAttribute PilotPenerbanganModel jadwalBaru,
+        Model model
+    ){
+        PenerbanganModel pen = penerbanganService.getPenerbanganById(penerbanganId);
+        pilotPenerbanganService.addPilotPenerbangan(jadwalBaru);
+        model.addAttribute("nama", jadwalBaru.getPilot().getNama());
+        model.addAttribute("kode", pen.getKode());
+        return "add-jadwal-baru";
+    }
+
+
 }
