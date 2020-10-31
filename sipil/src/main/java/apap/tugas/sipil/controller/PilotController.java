@@ -10,7 +10,11 @@ import apap.tugas.sipil.service.MaskapaiService;
 import apap.tugas.sipil.service.PilotPenerbanganService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -139,6 +143,59 @@ public class PilotController {
         }
         model.addAttribute("listPilot", listPilot);
         return "cari-pilot-maskapai-akademi";
+    }
+
+    @GetMapping(value = "/cari/pilot/penerbangan-terbanyak")
+    public String cariPilotPenerbanganTerbanyak(
+        @RequestParam(value="kodeMaskapai", required = false) String kodeMaskapai,
+        Model model
+    ){
+        List<Integer> hitung = new ArrayList<Integer>();
+        List<PilotModel> listPilot = new ArrayList<PilotModel>();
+        model.addAttribute("listMaskapai", maskapaiService.getMaskapaiList());
+        
+        if(kodeMaskapai.equals("nothing")==false){
+            MaskapaiModel mas = maskapaiService.getMaskapaiByKode(kodeMaskapai);
+            List<PilotModel> pilot = pilotService.getPilotByMaskapai(mas);
+            if(pilot.size()>0){
+                for(PilotModel pl : pilot){
+                    Integer n = pilotPenerbanganService.getPilotPenerbanganByPilot(pl).size();
+                    hitung.add(n);
+                    listPilot.add(pl);
+                }  
+                if(pilot.size()>1){
+                    for(int i =0; i< hitung.size()-1;i++){
+                        if(hitung.get(i) < hitung.get(i+1)){
+                            int temp = hitung.get(i);
+                            PilotModel temp1 = listPilot.get(i);
+                            //versi hitung
+                            hitung.set(i, hitung.get(i+1));
+                            hitung.set(i+1, temp);
+                            //versi pilot models
+                            listPilot.set(i, listPilot.get(i+1));
+                            listPilot.set(i+1, temp1);
+                            i = -1;
+                        }
+                    }
+                }
+                if(pilot.size()>=3){
+                    List<PilotModel> finalPilot = new ArrayList<PilotModel>();
+                    for(int i=0; i<3;i++){
+                        finalPilot.add(listPilot.get(i));
+                    }
+                    model.addAttribute("listPilot", finalPilot);
+                    model.addAttribute("hitung", hitung);
+                } else {
+                    model.addAttribute("listPilot", listPilot);
+                    model.addAttribute("hitung", hitung);
+                }
+            } else {
+                model.addAttribute("listPilot", listPilot);
+            }
+        } else {
+            model.addAttribute("listPilot", listPilot);
+        }
+        return "cari-penerbangan-terbanyak";
     }
 
 }
