@@ -6,5 +6,6 @@ public interface AkademiService {
     //Method untuk mendapatkan daftar Akademi
     List<AkademiModel> getAkademiList();
 
+    //Method untuk mendapatkan Akademi by Id.
     AkademiModel getAkademiById(Long id);
 }
