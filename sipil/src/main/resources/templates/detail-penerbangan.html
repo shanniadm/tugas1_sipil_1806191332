@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Detail Penerbangan</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class=" container" style="margin: 2%; padding-left: 30%; padding-right: 30%;">
+            <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
+                <div class=" container" style="background-color: midnightblue; color: white;">
+                    <h4 class=" text-center">Detail Pilot</h4>
+                </div>
+                <div class="container" style=" padding-bottom: 2%;">
+                    <table>
+                        <tr>
+                            <td th:text="'Id'" style="padding: 10px;" ></td>
+                            <td th:text="': '+${penerbangan.id}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Kode'" style="padding: 10px;"></td>
+                            <td th:text="': '+${penerbangan.kode}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Waktu'" style="padding: 10px;"></td>
+                            <td th:text="': '+${penerbangan.waktu}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Kota Asal'" style="padding: 10px;"></td>
+                            <td th:text="': '+${penerbangan.kotaAsal}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Kota Tujuan'" style="padding: 10px;"></td>
+                            <td th:text="': '+${penerbangan.kotaTujuan}" style="padding: 10px;"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class=" container align-content-end" style="padding-left: 50%; margin: 5%; padding-bottom: 5%;"> 
+                    <td><a class="btn" style="background-color:darkblue; color: white;" 
+                        th:href="@{/penerbangan/ubah/}+${penerbangan.id}">Ubah</a></td>
+                    <td><a class="btn" style="background-color: darkred; color: white;" 
+                        th:href="@{/penerbangan/hapus/}+${penerbangan.id}">Hapus</a></td>
+                </div>
+            </div>
+        </div>
+        <div class=" container" style="margin: 5%; padding-left: 10%; padding-right: 10%;">
+            <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
+                <div class=" container" style="background-color: midnightblue; color: white;">
+                    <h4 class=" text-center">Daftar Pilot</h4>
+                </div>
+                <div th:if="${listJadwal.size()>0}">
+                    <table class=" table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>NIP</th>
+                                <th>Tanggal Lahir</th>
+                                <th>Tanggal Penugasan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="jdl, itr : ${listJadwal}">
+                                <td th:text="${itr.count}"></td>
+                                <td th:text="${jdl.pilot.nama}"></td>
+                                <td th:text="${jdl.pilot.nip}"></td>
+                                <td th:text="${jdl.pilot.tanggalLahir}"></td>
+                                <td th:text="${jdl.tanggalPenugasan}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:if="${listJadwal.size()==0}">
+                    <h4 class=" text-center" style="padding: 3%;">Penerbangan belum memiliki jadwal Pilot.</h4>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

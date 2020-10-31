@@ -2,14 +2,14 @@ package apap.tugas.sipil.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity 
 @Table(name = "penerbangan")
 public class PenerbanganModel implements Serializable{
     @Id
-    @Size(max = 20)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
@@ -20,18 +20,18 @@ public class PenerbanganModel implements Serializable{
 
     @NotNull
     @Size(max = 255)
-    @Column(name = "kota_asal", nullable = false)
-    private String kota_asal;
+    @Column(name = "kotaAsal", nullable = false)
+    private String kotaAsal;
 
     @NotNull
     @Size(max = 255)
-    @Column(name = "kota_tujuan", nullable = false)
-    private String kota_tujuan;
+    @Column(name = "kotaTujuan", nullable = false)
+    private String kotaTujuan;
 
     @NotNull
     @Column(name = "waktu", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date waktu;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime waktu;
 
     //Getter
     public Long getId(){
@@ -43,14 +43,14 @@ public class PenerbanganModel implements Serializable{
     }
 
     public String getKotaAsal(){
-        return this.kota_asal;
+        return this.kotaAsal;
     }
 
     public String getKotaTujuan(){
-        return this.kota_tujuan;
+        return this.kotaTujuan;
     }
 
-    public Date getWaktu(){
+    public LocalDateTime getWaktu(){
         return this.waktu;
     }
 
@@ -63,15 +63,15 @@ public class PenerbanganModel implements Serializable{
         this.kode = kode;
     }
 
-    public void setKotaAsal(String kota_asal){
-        this.kota_asal = kota_asal;
+    public void setKotaAsal(String kotaAsal){
+        this.kotaAsal = kotaAsal;
     }
 
-    public void setKotaTujuan(String kota_tujuan){
-        this.kota_tujuan = kota_tujuan;
+    public void setKotaTujuan(String kotaTujuan){
+        this.kotaTujuan = kotaTujuan;
     }
 
-    public void setWaktu(Date waktu){
+    public void setWaktu(LocalDateTime waktu){
         this.waktu = waktu;
     }
 }

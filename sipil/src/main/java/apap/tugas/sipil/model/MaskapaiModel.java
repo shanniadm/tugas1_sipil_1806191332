@@ -10,7 +10,6 @@ import java.util.List;
 public class MaskapaiModel implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Size(max=20)
     private Long id;
 
     @NotNull 

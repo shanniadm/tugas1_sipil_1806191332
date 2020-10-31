@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Daftar Pilot</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class=" container" style="margin: 5%;">
+            <a th:href="@{/pilot/tambah}" class=" btn" style="background-color:cadetblue; color: white; margin-bottom: 2%;">Tambah Pilot</a>
+            <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
+                <div class=" container" style="background-color: midnightblue; color: white;">
+                    <h4 class=" text-center">Daftar Pilot</h4>
+                </div>
+                <table class=" table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>NIP</th>
+                            <th>NIK</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Action</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="pilot, itr : ${listPilot}">
+                            <td th:text="${itr.count}"></td>
+                            <td th:text="${pilot.nama}"></td>
+                            <td th:text="${pilot.nip}"></td>
+                            <td th:text="${pilot.nik}"></td>
+                            <td th:text="${pilot.tanggalLahir}"></td>
+                            <td>
+                                <div th:if="${pilot.jenisKelamin==1}">Laki-laki</div>
+                                <div th:if="${pilot.jenisKelamin==2}">Perempuan</div>
+                            </td>
+                            <td><a class="btn" style="background-color: royalblue; color: white;" 
+                                th:href="@{/pilot/}+${pilot.nip}">Lihat</a></td>
+                            <td><a class="btn" style="background-color:darkblue; color: white;" 
+                                th:href="@{/pilot/ubah/}+${pilot.nip}">Ubah</a></td>
+                            <td><a class="btn" style="background-color: darkred; color: white;" 
+                                th:href="@{/pilot/delete/}+${pilot.nip}">Hapus</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

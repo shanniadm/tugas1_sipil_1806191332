@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Daftar Penerbangan</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class=" container" style="margin: 5%;">
+            <a th:href="@{/penerbangan/tambah}" class=" btn" style="background-color:cadetblue; color: white; margin-bottom: 2%;">Tambah Penerbangan</a>
+            <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
+                <div class=" container" style="background-color: midnightblue; color: white;">
+                    <h4 class=" text-center">Daftar Penerbangan</h4>
+                </div>
+                <table class=" table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode Penerbangan</th>
+                            <th>Waktu</th>
+                            <th>Kota Asal</th>
+                            <th>Kota Tujuan</th>
+                            <th>Action</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="pen, itr : ${listPenerbangan}">
+                            <td th:text="${itr.count}"></td>
+                            <td th:text="${pen.kode}"></td>
+                            <td th:text="${pen.waktu}"></td>
+                            <td th:text="${pen.kotaAsal}"></td>
+                            <td th:text="${pen.kotaTujuan}"></td>
+                            <td><a class="btn" style="background-color: royalblue; color: white;" 
+                                th:href="@{/penerbangan/detail/}+${pen.id}">Lihat</a></td>
+                            <td><a class="btn" style="background-color:darkblue; color: white;" 
+                                th:href="@{/penerbangan/ubah/}+${pen.id}">Ubah</a></td>
+                            <td><a class="btn" style="background-color: darkred; color: white;" 
+                                th:href="@{/penerbangan/hapus/}+${pen.id}">Hapus</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

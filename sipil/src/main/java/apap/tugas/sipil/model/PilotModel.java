@@ -14,7 +14,6 @@ import java.sql.Date;
 public class PilotModel implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Size(max = 20)
     private Long id; 
 
     @NotNull
@@ -23,7 +22,6 @@ public class PilotModel implements Serializable{
     private String nama;
 
     @NotNull
-    
     @Size(max = 13)
     @Column(name = "nip", nullable = false, unique = true)
     private String nip;
@@ -34,26 +32,26 @@ public class PilotModel implements Serializable{
     private String nik; 
 
     @NotNull
-    @Column(name = "tanggal_lahir", nullable = false)
-    private Date tanggal_lahir;
+    @Column(name = "tanggalLahir", nullable = false)
+    private Date tanggalLahir;
 
     @NotNull
     @Size(max = 255)
-    @Column(name = "tempat_lahir", nullable = false)
-    private String tempat_lahir;
+    @Column(name = "tempatLahir", nullable = false)
+    private String tempatLahir;
 
     @NotNull
-    @Column(name = "jenis_kelamin", nullable = false)
-    private Integer jenis_kelamin;
+    @Column(name = "jenisKelamin", nullable = false)
+    private Integer jenisKelamin;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_maskapai", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idMaskapai", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private MaskapaiModel maskapai;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_akademi", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idAkademi", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private AkademiModel akademi;
@@ -77,15 +75,15 @@ public class PilotModel implements Serializable{
     }
 
     public Date getTanggalLahir(){
-        return this.tanggal_lahir;
+        return this.tanggalLahir;
     }
 
     public String getTempatLahir(){
-        return this.tempat_lahir;
+        return this.tempatLahir;
     }
 
     public Integer getJenisKelamin(){
-        return this.jenis_kelamin;
+        return this.jenisKelamin;
     }
 
     public MaskapaiModel getMaskapai(){
@@ -115,15 +113,15 @@ public class PilotModel implements Serializable{
     }
 
     public void setTanggalLahir(Date tanggal_lahir){
-        this.tanggal_lahir = tanggal_lahir;
+        this.tanggalLahir = tanggal_lahir;
     }
 
     public void setTempatLahir(String tempat_lahir){
-        this.tempat_lahir = tempat_lahir;
+        this.tempatLahir = tempat_lahir;
     }
 
     public void setJenisKelamin(Integer jenis_kelamin){
-        this.jenis_kelamin = jenis_kelamin;
+        this.jenisKelamin = jenis_kelamin;
     }
 
     public void setMaskapai(MaskapaiModel maskapai){

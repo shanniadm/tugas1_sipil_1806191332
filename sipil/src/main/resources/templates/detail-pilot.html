@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Detail Pilot</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class=" container" style="margin: 2%; padding-left: 30%; padding-right: 30%;">
+            <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
+                <div class=" container" style="background-color: midnightblue; color: white;">
+                    <h4 class=" text-center">Detail Pilot</h4>
+                </div>
+                <div class="container" style=" padding-bottom: 2%;">
+                    <table>
+                        <tr>
+                            <td th:text="'Id'" style="padding: 10px;" ></td>
+                            <td th:text="': '+${pilot.id}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Nama'" style="padding: 10px;"></td>
+                            <td th:text="': '+${pilot.nama}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'NIK'" style="padding: 10px;"></td>
+                            <td th:text="': '+${pilot.nik}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <div th:if="${pilot.jenisKelamin==1}">
+                                <td th:text="'Jenis Kelamin'" style="padding: 10px;"></td>
+                                <td th:text="': Laki-laki'" style="padding: 10px;"></td>
+                            </div>
+                            <div th:if="${pilot.jenisKelamin==2}">
+                                <td th:text="'Jenis Kelamin'" style="padding: 10px;"></td>
+                                <td th:text="': Perempuan'" style="padding: 10px;"></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td th:text="'NIP'" style="padding: 10px;"></td>
+                            <td th:text="': '+${pilot.nip}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Tempat Lahir'" style="padding: 10px;"></td>
+                            <td th:text="': '+${pilot.tempatLahir}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Tanggal Lahir'" style="padding: 10px;"></td>
+                            <td th:text="': '+${pilot.tanggalLahir}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Sekolah '" style="padding: 10px;"></td>
+                            <td th:text="': '+${pilot.akademi.nama}" style="padding: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Maskapai '" style="padding: 10px;"></td>
+                            <td th:text="': '+${pilot.maskapai.nama}" style="padding: 10px;"></td>
+                        </tr>
+                    </table>
+                    <div class=" container align-content-end" style="padding-left: 50%; margin: 5%;"> 
+                        <td><a class="btn" style="background-color:darkblue; color: white;" 
+                            th:href="@{/pilot/ubah/}+${pilot.nip}">Ubah</a></td>
+                        <td><a class="btn" style="background-color: darkred; color: white;" 
+                            th:href="@{/pilot/hapus/}+${pilot.nip}">Hapus</a></td>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" container" style="margin: 5%; padding-left: 10%; padding-right: 10%;">
+            <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
+                <div class=" container" style="background-color: midnightblue; color: white;">
+                    <h4 class=" text-center">Jadwal Bertugas</h4>
+                </div>
+                <div th:if="${listJadwal.size()>0}">
+                    <table class=" table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode Penerbangan</th>
+                                <th>Waktu</th>
+                                <th>Kota Asal</th>
+                                <th>Kota Tujuan</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="jadwal, itr : ${listJadwal}">
+                                <td th:text="${itr.count}"></td>
+                                <td th:text="${jadwal.penerbangan.kode}"></td>
+                                <td th:text="${jadwal.penerbangan.waktu}"></td>
+                                <td th:text="${jadwal.penerbangan.kotaAsal}"></td>
+                                <td th:text="${jadwal.penerbangan.kotaTujuan}"></td>
+                                <td><a class="btn" style="background-color: royalblue; color: white;" 
+                                    th:href="@{#}">Lihat</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:if="${listJadwal.size()==0}">
+                    <h4 class=" text-center" style="padding: 3%;">Pilot belum ada jadwal bertugas.</h4>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

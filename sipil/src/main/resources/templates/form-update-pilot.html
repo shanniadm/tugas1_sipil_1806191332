@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sf="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Form Update Pilot</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class=" container" style=" margin:3%; padding-left: 30%; padding-right: 30%;">
+            <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
+                <div class=" container" style="background-color: midnightblue; color: white;">
+                    <h4 class=" text-center">Update Data Pilot</h4>
+                </div>
+                <div class=" container form-container" style="padding-bottom: 5%;">
+                    <form th:action="@{/pilot/ubah}" th:object="${pilot}" method="POST">
+                    <input type="hidden" name="id" th:value="*{id}">
+                    Nama <br>
+                    <input type="text" name="nama" th:value="*{nama}">
+                    <br>
+                    NIK <br>
+                    <input type="text" name="nik" th:value="*{nik}">
+                    <br>
+                    <input type="hidden" name="nip" th:value="*{nip}">
+                    Tempat Lahir <br>
+                    <input type="text" name="tempatLahir" th:value="*{tempatLahir}">
+                    <br>
+                    Tanggal Lahir<br>
+                    <input type="date" name="tanggalLahir" th:value="*{tanggalLahir}" placeholder="dd-mm-yyyy">
+                    <br>
+                    Jenis Kelamin <br>
+                    <select name="jenisKelamin" th:value="*{jenisKelamin}">
+                        <option value="1" th:text="Laki-laki"></option>
+                        <option value="2" th:text="Perempuan"></option>
+                    </select>
+                    <br>
+                    Sekolah <br> 
+                    <select name="akademi" th:value="*{akademi}">
+                        <option th:each="aka : ${listAkademi}" th:value="${aka.id}" 
+                        th:text="${aka.nama}"></option>
+                    </select>
+                    <br>
+                    Maskapai <br>
+                    <select name="maskapai" th:value="*{maskapai}">
+                        <option th:each="mas: ${listMaskapai}" th:value="${mas.id}" 
+                        th:text="${mas.nama}"></option>
+                    </select>
+                    <br><br>
+                    <div class="container btn-container" style="padding-left: 45%;" >
+                        <a class=" btn" style="background-color: white; color: midnightblue; 
+                        border-color: midnightblue;" th:href="@{/pilot}">Batal</a>
+                        <button class="btn" value="Submit" type="submit" style="background-color: midnightblue; color: white;">Update</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

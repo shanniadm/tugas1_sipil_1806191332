@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Form Tambah Pilot</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class=" container" style=" margin:3%; padding-left: 30%; padding-right: 30%;">
+            <div class=" container" style="border-radius: 10px;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;">
+                <div class=" container" style="background-color: midnightblue; color: white;">
+                    <h4 class=" text-center">Tambah Pilot</h4>
+                </div>
+                <div class=" container form-container" style="padding-bottom: 5%;">
+                    <form th:action="@{/pilot/tambah}" th:object="${pilot}" method="POST">
+                    Nama <br>
+                    <input type="text" name="nama">
+                    <br>
+                    NIK <br>
+                    <input type="text" name="nik">
+                    <br>
+                    Tempat Lahir <br>
+                    <input type="text" name="tempatLahir">
+                    <br>
+                    Tanggal Lahir<br>
+                    <input type="date" name="tanggalLahir" placeholder="dd-mm-yyyy">
+                    <br>
+                    Jenis Kelamin <br>
+                    <select name="jenisKelamin">
+                        <option value="1" th:text="Laki-laki"></option>
+                        <option value="2" th:text="Perempuan"></option>
+                    </select>
+                    <br>
+                    Sekolah <br> 
+                    <select name="akademi">
+                        <option th:each="aka : ${listAkademi}" th:value="${aka.id}" 
+                        th:text="${aka.nama}"></option>
+                    </select>
+                    <br>
+                    Maskapai <br>
+                    <select name="maskapai">
+                        <option th:each="mas: ${listMaskapai}" th:value="${mas.id}" 
+                        th:text="${mas.nama}"></option>
+                    </select>
+                    <br><br>
+                    <div class="container btn-container" style="padding-left: 45%;" >
+                        <a class=" btn" style="background-color: white; color: midnightblue; 
+                        border-color: midnightblue;" th:href="@{/pilot}">Batal</a>
+                        <button class="btn" value="Submit" type="submit" style="background-color: midnightblue; color: white;">Tambah</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
